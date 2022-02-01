@@ -1,0 +1,7 @@
+.list-container{
+    background-color: grey;
+    width: 95%;
+    height: 85%;
+    overflow-y: auto;
+    margin-left: auto;
+}

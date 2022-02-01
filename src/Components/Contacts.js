@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import './../Assets/Styles/Contacts.css'
+import ContactList from './ContactList';
 import SearchBar from './SearchBar';
 
 
@@ -8,6 +9,7 @@ const Contacts = () => {
     return(
         <div className="contacts-container">
             <SearchBar></SearchBar>
+            <ContactList/>
         </div>
     )
 }
