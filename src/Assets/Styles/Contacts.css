@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: space-between;
     background-color: #1E1E1E;
+    max-width: 370px;
+    min-width: 320px;
     width: 26%;
     padding-top: 50px
 }
