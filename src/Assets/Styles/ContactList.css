@@ -18,9 +18,36 @@
 }
 
 .list-options-container{
-    width: 100%;
+    width: 90%;
     display: flex;
     justify-content: space-between;
+}
+
+.sort-container{
+    display: flex;
+}
+
+.sort-heading{
+    font-size: 14px;
+    color: #B5B5B5;
+    margin: 0;
+    margin-right: 5px;
+    cursor: default;
+    
+}
+
+.sort-link{
+    font-size: 14px;
+    color: #B5B5B5;
+    text-decoration: underline;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.sort-arrow{
+    font-size: 14px;
+    color: #B5B5B5;
+    cursor: pointer;
 }
 
 /* width */

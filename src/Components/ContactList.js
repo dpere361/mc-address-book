@@ -4,9 +4,6 @@ import {API_KEY} from '../variables'
 import ContactEntry from './ContactEntry'
 
 
-const mock_list = [{name: 'person'}, {name: 'person2'}, {name: 'person3'}]
-
-
 // Component for the entire list of contacts in addition to options
 const ContactList = () => {
   const [contactList, setContactList] = useState([]);
@@ -18,8 +15,8 @@ const ContactList = () => {
   }, [])
 
   useEffect(() => {
-    console.log(selectedContact)
-  }, [selectedContact])
+    sortList()
+  }, [contactList])
 
   // CLEAN THIS
   const getContactList = () => {
@@ -51,15 +48,29 @@ const ContactList = () => {
     .catch(err => console.log(err))
   }
 
+  // Works only if both pointers point to the same location
   const isSelected = (contact) => {
     return (contact == selectedContact) 
+  }
+
+  const sortList = () => {
+    let listCopy = contactList.slice()
+    listCopy.sort(function(a, b) {
+      return a.firstName.localeCompare(b.firstName);
+    });
+    setContactList(listCopy)
   }
 
   return(
     <div style={{height: '85%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <div className="list-options-container">
-        <input style={{height: '35px', fontSize: '20px'}} type='button' value="Sort" />
-        <input style={{height: '35px', fontSize: '20px'}} type='button' value="Add" onClick={createContact}/>
+        <div className="sort-container">
+          <p className="sort-heading">Sort By: </p>
+          <div className='sort-link'>First Name</div>
+          <div className='sort-arrow'>V</div>
+        </div>
+        
+        <div className='sort-arrow' onClick={createContact}>V</div>
       </div>
       <div className='list-top-separator'/>
       <div className="list-container">
