@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import './../Assets/Styles/SearchBar.css'
+import './../assets/styles/SearchBar.css'
 import { FaSearch, FaCog } from 'react-icons/fa';
 
 // Searchbar component

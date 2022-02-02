@@ -1,3 +1,11 @@
+.entry-separator{
+  height: 1px;
+  min-height: 1px;
+  width: 310px;
+  background-color: #393939;
+  border-radius: 50px;
+}
+
 .entry-container{
   min-height: 90px;
   max-height: 90px;
@@ -9,6 +17,10 @@
   padding-left: 15px;
   cursor: pointer;
 }
+
+/* .first-separator{
+  border-top: 1px solid #393939;
+} */
 
 .selected-contact{
   background-color: #2D2D2D;

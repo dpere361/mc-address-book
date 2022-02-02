@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import './../Assets/Styles/Contacts.css'
+import './../assets/styles/Contacts.css'
 import ContactList from './ContactList';
 import SearchBar from './SearchBar';
 

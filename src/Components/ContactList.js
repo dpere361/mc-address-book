@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import './../Assets/Styles/ContactList.css'
+import './../assets/styles/ContactList.css'
 import {API_KEY} from '../variables'
 import ContactEntry from './ContactEntry'
 
@@ -7,6 +7,7 @@ import ContactEntry from './ContactEntry'
 // Component for the entire list of contacts in addition to options
 const ContactList = () => {
   const [contactList, setContactList] = useState([]);
+  const [sorted, setSorted] = useState(false)
   const [selectedContact, setSelectedContact] = useState({});
 
   // Hook for onComponentMount
@@ -15,8 +16,14 @@ const ContactList = () => {
   }, [])
 
   useEffect(() => {
-    sortList()
+    if(sorted && contactList.length>0)
+      setSelectedContact(contactList[0])
   }, [contactList])
+
+  useEffect(() => {
+    if(!sorted)
+      sortList()
+  }, [sorted])
 
   // CLEAN THIS
   const getContactList = () => {
@@ -24,7 +31,7 @@ const ContactList = () => {
       method: 'GET',
     })
     .then(res => res.json())
-    .then(data => {setContactList(data.result); setSelectedContact(contactList[0])})
+    .then(data => {setContactList(data.result); setSorted(false)})
     .catch(err => console.log(err))
   }
 
@@ -50,15 +57,23 @@ const ContactList = () => {
 
   // Works only if both pointers point to the same location
   const isSelected = (contact) => {
-    return (contact == selectedContact) 
+    return (contact === selectedContact) 
   }
 
   const sortList = () => {
-    let listCopy = contactList.slice()
+    let listCopy = contactList.slice();
     listCopy.sort(function(a, b) {
       return a.firstName.localeCompare(b.firstName);
     });
-    setContactList(listCopy)
+    setContactList(listCopy);
+    setSorted(true);
+  }
+
+  // Clean this
+  const isFirst = (contact, i) => {
+    let indexOfFirst = contactList.findIndex((element) => element.firstName.charAt(0) === contact.firstName.charAt(0))
+    if(indexOfFirst == i)
+      return true
   }
 
   return(
@@ -76,7 +91,7 @@ const ContactList = () => {
       <div className="list-container">
         {contactList.map((contact, i) => {
           return(
-            <ContactEntry key={`${i}-listitem`} i={i} contact={contact} isSelected={isSelected(contact)} setSelectedContact={setSelectedContact}/>
+            <ContactEntry key={`${i}-listitem`} i={i} contact={contact} isSelected={isSelected(contact)} setSelectedContact={setSelectedContact} isFirst={isFirst(contact, i)}/>
           )
         })}
       </div>
