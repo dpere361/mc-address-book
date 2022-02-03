@@ -58,18 +58,27 @@ const ContactList = ({filter, filterSettings, data, getContactList, selectedCont
         });
         setContactList(listCopy);
       }
+      else{
+        setContactList([])
+      }
   }
 
   // Filters contact data based on filterSettings
   const filterContacts = () => {
-    let listCopy = data.slice();
-    if(data && filter.length>1){
-      let filterCopy = filter.slice().toUpperCase();
-      listCopy = listCopy.filter((contact) => {
-        return filterSettings.some((filter) => contact[filter]?.toUpperCase().includes(filterCopy))
-      })
+    if(data){
+      let listCopy = data.slice();
+      if(data && filter.length>1){
+        let filterCopy = filter.slice().toUpperCase();
+        listCopy = listCopy.filter((contact) => {
+          return filterSettings.some((filter) => contact[filter]?.toUpperCase().includes(filterCopy))
+        })
+      }
+      setFilteredList(listCopy)
     }
-    setFilteredList(listCopy)
+    else{
+      setFilteredList([])
+    }
+    
   }
 
   // Method to check if the first letter of a contact's info is the first occurance
