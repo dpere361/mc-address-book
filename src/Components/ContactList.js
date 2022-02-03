@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import './../assets/styles/ContactList.css'
+import './../Assets/Styles/ContactList.css'
 import ContactEntry from './ContactEntry'
 import SortMenu from './SortMenu'
 import CreateContactDialogue from './CreateContactDialogue'

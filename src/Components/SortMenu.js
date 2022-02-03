@@ -1,5 +1,5 @@
 import React from 'react';
-import './../assets/styles/SortMenu.css';
+import './../Assets/Styles/SortMenu.css';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import { parseString } from '../utils/utility';
 

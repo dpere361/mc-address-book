@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import './../assets/styles/Contacts.css'
+import './../Assets/Styles/Contacts.css'
 import ContactList from './ContactList';
 import SearchBar from './SearchBar';
 

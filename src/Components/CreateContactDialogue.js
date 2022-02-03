@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import './../assets/styles/CreateContactDialogue.css';
+import './../Assets/Styles/CreateContactDialogue.css';
 import { FaPlus } from 'react-icons/fa';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -59,8 +59,8 @@ const CreateContactDialogue = ({getContactList}) => {
     let phoneValidation = /^(\+0?1\s)?\(?\d{3}\)?[\s.]\d{3}[\s.]\d{4}$/;
     
     // Long boolean tests that returns true if the field is undefined, and empty string, or if the string(length>0) passes the regex test
-    let isValidEmail = newContact.email===undefined || newContact.email.length===0 || (newContact.email && emailValidation.test(newContact.email));
-    let isValidPhone = newContact.email===undefined || newContact.phone.length===0 || (newContact.phone && phoneValidation.test(newContact.phone));
+    let isValidEmail = (newContact.email && emailValidation.test(newContact.email));
+    let isValidPhone = (newContact.phone && phoneValidation.test(newContact.phone));
     setErrors({phoneError: !isValidPhone, emailError: !isValidEmail});
     return (isValidEmail && isValidPhone);
   }

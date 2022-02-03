@@ -1,6 +1,6 @@
 import React from 'react'
-import './../assets/styles/ContactInfo.css'
-import pfp from './../assets/generic-avatar-1.jpg';
+import './../Assets/Styles/ContactInfo.css'
+import pfp from './../Assets/generic-avatar-1.jpg';
 import EditMenu from './EditMenu'
 import { formatPhone, hashString } from '../utils/utility';
 

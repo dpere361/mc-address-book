@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import './assets/styles/App.css';
-import Contacts from './components/Contacts';
+import './Assets/Styles/App.css';
+import Contacts from './Components/Contacts';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ContactInfo from './components/ContactInfo';
+import ContactInfo from './Components/ContactInfo';
 
 function App() {
   const [selectedContact, setSelectedContact] = useState({}); 

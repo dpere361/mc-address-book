@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { FaEdit } from 'react-icons/fa';
-import './../assets/styles/EditMenu.css'
+import './../Assets/Styles/EditMenu.css'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -42,9 +42,9 @@ const EditMenu = ({selectedContact, getContactList}) =>{
     let emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     let phoneValidation = /^(\+0?1\s)?\(?\d{3}\)?[\s.]\d{3}[\s.]\d{4}$/;
 
-    // Long boolean tests that returns true if the field is undefined, and empty string, or if the string(length>0) passes the regex test 
-    let isValidEmail = editContact.email===undefined || editContact.email.length===0 || (editContact.email && emailValidation.test(editContact.email));
-    let isValidPhone = editContact.phone===undefined || editContact.phone.length===0 || (editContact.phone && phoneValidation.test(editContact.phone));
+    // Long boolean tests that returns true if the string(length>0) passes the regex test 
+    let isValidEmail = (editContact.email && emailValidation.test(editContact.email));
+    let isValidPhone = (editContact.phone && phoneValidation.test(editContact.phone));
     setErrors({phoneError: !isValidPhone, emailError: !isValidEmail});
     return (isValidEmail && isValidPhone);
   }

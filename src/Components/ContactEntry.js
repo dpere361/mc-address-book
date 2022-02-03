@@ -1,6 +1,6 @@
 import React from 'react';
-import './../assets/styles/ContactEntry.css';
-import pfp from './../assets/generic-avatar-1.jpg';
+import './../Assets/Styles/ContactEntry.css';
+import pfp from './../Assets/generic-avatar-1.jpg';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { formatPhone, hashString } from '../utils/utility';
 

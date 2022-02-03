@@ -1,5 +1,5 @@
 import React from 'react'
-import './../assets/styles/SearchBar.css'
+import './../Assets/Styles/SearchBar.css'
 import { FaSearch, FaCog } from 'react-icons/fa';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { parseString } from '../utils/utility';

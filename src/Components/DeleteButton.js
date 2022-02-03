@@ -1,5 +1,5 @@
 import React from 'react';
-import './../assets/styles/DeleteButton.css';
+import './../Assets/Styles/DeleteButton.css';
 import { FaTrash } from 'react-icons/fa'
 
 const DeleteButton = ({deleting, setDeleting, deleteList, setDeleteList, getContactList}) => {
