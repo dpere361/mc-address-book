@@ -60,4 +60,45 @@
   width: 20px;
   height: 20px;
   color: #A4A4A4;
+  cursor: pointer;
 }
+
+.search-gear:hover{
+  color: #808080;
+}
+
+.search-menu-container{
+  position: relative;
+  display: inline-block;
+}
+
+.search-menu {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  background-color: #6A6A6A;
+  min-width: 130px;
+  box-shadow: 0px 7px 5px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  padding: 3px;
+}
+
+.search-option{
+  display: flex;
+  background-color: #6A6A6A;
+  padding: 10px;
+  width: 155px;
+  text-align: left;
+}
+
+.search-option:hover{
+  background-color: #7c7c7c;
+}
+
+.search-option-label{
+  color: white;
+}
+
+/* Show the dropdown menu on hover */
+.search-menu-container:hover .search-menu {display: flex;}

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import './../assets/styles/CreateContactDialogue.css';
-import { FaPlus } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
+import './../assets/styles/EditMenu.css'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -8,42 +8,55 @@ import { parseString } from '../utils/utility';
 
 const FIELDS = ['firstName', 'lastName', 'phone', 'email', 'address', 'address2','city', 'state', 'zipcode']
 
-// Component for create contact button + modal
-const CreateContactDialogue = ({getContactList}) => {
-
-  // Having all fields in one state object is easier to loop through
-  const [newContact, setNewContact] = useState({})
-
+const EditMenu = ({selectedContact, getContactList}) =>{
   const [show, setShow] = useState(false); // modal status
   const [submitted, setSubmitted] = useState(false);
+  const [editContact, setEditContact] = useState({...selectedContact}) // Having all fields in one state object is easier to loop through
   const [errors, setErrors] = useState({emailError: false, phoneError: false})
 
   useEffect(()=>{
+    setEditContact({...selectedContact})
+  },[selectedContact])
+
+  useEffect(()=>{
     setErrors({...errors, phoneError: false})
-  },[newContact.phone])
+  },[editContact.phone])
 
   useEffect(()=>{
     setErrors({...errors, emailError: false})
-  },[newContact.email])
-
-  // closes modal and resets contact
-  const handleClose = () => {
-    setNewContact({});
-    setShow(false);
-    setTimeout(()=> {setSubmitted(false)}, 500); // stops info from changing before closing animation finishes
-  }
+  },[editContact.email])
 
   const handleShow = () => {
     setShow(true);
   }
 
-  const createContact = () => {
-    if(validateForm()){
-      fetch(`https://front-end.oudemo.com/api/address/new`, {
+  // closes modal and resets contact
+  const handleClose = () => {
+    setEditContact({...selectedContact});
+    setShow(false);
+    setTimeout(()=> {setSubmitted(false)}, 500); // stops info from changing before closing animation finishes
+  }
+
+  // Method to validate phone and email using regular expressions
+  const validateForm = () => {
+    let emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let phoneValidation = /^(\+0?1\s)?\(?\d{3}\)?[\s.]\d{3}[\s.]\d{4}$/;
+
+    // Long boolean tests that returns true if the field is undefined, and empty string, or if the string(length>0) passes the regex test 
+    let isValidEmail = editContact.email===undefined || editContact.email.length===0 || (editContact.email && emailValidation.test(editContact.email));
+    let isValidPhone = editContact.phone===undefined || editContact.phone.length===0 || (editContact.phone && phoneValidation.test(editContact.phone));
+    setErrors({phoneError: !isValidPhone, emailError: !isValidEmail});
+    return (isValidEmail && isValidPhone);
+  }
+
+  const submitEdits = () => {
+    if(validateForm(editContact.email, editContact.phone)){
+      fetch(`https://front-end.oudemo.com/api/address/update`, {
         method: 'POST',
         body: JSON.stringify({
           apikey: process.env.REACT_APP_API_KEY,
-          ...newContact
+          id: selectedContact.id,
+          ...editContact
         })
       })
       .then(res => res.json())
@@ -52,21 +65,9 @@ const CreateContactDialogue = ({getContactList}) => {
     }
   }
 
-  // Method to validate phone and email using regular expressions
-  const validateForm = () => {
-    
-    let emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let phoneValidation = /^(\+0?1\s)?\(?\d{3}\)?[\s.]\d{3}[\s.]\d{4}$/;
-    
-    // Long boolean tests that returns true if the field is undefined, and empty string, or if the string(length>0) passes the regex test
-    let isValidEmail = newContact.email===undefined || newContact.email.length===0 || (newContact.email && emailValidation.test(newContact.email));
-    let isValidPhone = newContact.email===undefined || newContact.phone.length===0 || (newContact.phone && phoneValidation.test(newContact.phone));
-    setErrors({phoneError: !isValidPhone, emailError: !isValidEmail});
-    return (isValidEmail && isValidPhone);
-  }
-
-  return(<>
-    <div className='sort-arrow' onClick={handleShow}><FaPlus/></div>
+  return(
+    <>
+    <div className='edit-button' onClick={handleShow}><FaEdit/></div>
     <Modal
       show={show}
       onHide={handleClose}
@@ -75,12 +76,12 @@ const CreateContactDialogue = ({getContactList}) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>Create a New Contact</Modal.Title>
+        <Modal.Title>Edit Contact</Modal.Title>
       </Modal.Header>
       {submitted 
       ?(<>
           <Modal.Body>
-          <p style={{fontWeight:'500'}}>Contact has been created</p>
+          <p style={{fontWeight:'500'}}>Contact has been edited</p>
           </Modal.Body>
           <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -90,14 +91,14 @@ const CreateContactDialogue = ({getContactList}) => {
         </>)
       :(<>
           <Modal.Body>
-          <Form id='requestForm'>
+          <Form id='editForm'>
             {FIELDS.map((field, i)=>(
-              <Form.Group key={`${i}-${field}-form`}>
+              <Form.Group key={`${i}-${field}-form-edit`}>
                 <Form.Control 
-                  defaultValue={newContact[field]} 
+                  defaultValue={editContact[field]} 
                   className ='' 
                   placeholder={parseString(field)} 
-                  onChange={(e) => setNewContact({...newContact, [field]: e.target.value})}
+                  onChange={(e) => setEditContact({...editContact, [field]: e.target.value})}
                 />
                 {(field === 'email' && errors.emailError) || (field === 'phone' && errors.phoneError) 
                 ? <div className='error'>
@@ -116,12 +117,13 @@ const CreateContactDialogue = ({getContactList}) => {
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary" className='' type='submit' onClick={function () {createContact();}}>Create</Button>
+          <Button variant="primary" className='' type='submit' onClick={function () {submitEdits();}}>Submit</Button>
           </Modal.Footer>
         </>)
       }
     </Modal>
-  </>)
+    </>
+  )
 }
 
-export default CreateContactDialogue
+export default EditMenu

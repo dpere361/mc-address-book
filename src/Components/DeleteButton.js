@@ -1,7 +1,6 @@
 import React from 'react';
 import './../assets/styles/DeleteButton.css';
 import { FaTrash } from 'react-icons/fa'
-import {API_KEY} from '../variables' // Make an ENV variable
 
 const DeleteButton = ({deleting, setDeleting, deleteList, setDeleteList, getContactList}) => {
 
@@ -10,7 +9,7 @@ const DeleteButton = ({deleting, setDeleting, deleteList, setDeleteList, getCont
       fetch(`https://front-end.oudemo.com/api/address/delete`, {
         method: 'POST',
         body: JSON.stringify({
-          apikey: API_KEY,
+          apikey: process.env.REACT_APP_API_KEY,
           id: deleteId
         })
       })

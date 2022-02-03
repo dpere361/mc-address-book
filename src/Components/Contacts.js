@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import './../assets/styles/Contacts.css'
 import ContactList from './ContactList';
 import SearchBar from './SearchBar';
 
-
 // Contacts component for the left-hand side of the app
-const Contacts = () => {
+const Contacts = ({data, getContactList, selectedContact, setSelectedContact}) => {
     const [filter, setFilter] = useState('')
     const [filterSettings, setFilterSettings] = useState(['firstName', 'lastName', 'email'])
 
@@ -17,7 +16,14 @@ const Contacts = () => {
                 filterSettings={filterSettings} 
                 setFilterSettings={setFilterSettings}>
             </SearchBar>
-            <ContactList filter={filter} filterSettings={filterSettings}/>
+            <ContactList 
+                filter={filter} 
+                filterSettings={filterSettings} 
+                data={data} 
+                getContactList={getContactList} 
+                selectedContact={selectedContact} 
+                setSelectedContact={setSelectedContact}
+            />
         </div>
     )
 }

@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './../assets/styles/ContactEntry.css';
 import pfp from './../assets/generic-avatar-1.jpg';
 import InputGroup from 'react-bootstrap/InputGroup';
+import { formatPhone } from '../utils/utility';
+import MD5 from "crypto-js/md5";
 
 const ContactEntry = ({contact, selectedContact, setSelectedContact, isFirst, deleting, setDeleteList, deleteList, sortField}) => {
 
@@ -32,11 +34,11 @@ const ContactEntry = ({contact, selectedContact, setSelectedContact, isFirst, de
           : <div className='entry-letter'></div>
           )
         }
-        <img className='entry-picture' src={pfp} alt='profile'/>
-        <div style={{display:'flex', flexDirection:'column', textAlign: 'left'}}>
+        <img className='entry-picture' src={contact.email?`https://www.gravatar.com/avatar/${MD5(contact.email.trim().toLowerCase()).toString()}?s=50&r=pg&d=robohash`:pfp} alt='profile'/>
+        <div className='entry-info-box'>
           <div className='entry-name'>{contact.firstName} {contact.lastName}</div>
           <div className='entry-info'>{contact.email}</div>
-          <div className='entry-info'>{contact.phone}</div>
+          <div className='entry-info'>{formatPhone(contact.phone)}</div>
         </div>
       </div>
     </>

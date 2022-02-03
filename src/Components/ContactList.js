@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import './../assets/styles/ContactList.css'
-import {API_KEY} from '../variables' // Make an ENV variable
 import ContactEntry from './ContactEntry'
 import SortMenu from './SortMenu'
 import CreateContactDialogue from './CreateContactDialogue'
@@ -8,11 +7,10 @@ import CreateContactDialogue from './CreateContactDialogue'
 import DeleteButton from './DeleteButton'
 
 // Component for the entire list of contacts in addition to options
-const ContactList = ({filter, filterSettings}) => {
-  const [data, setData] = useState([]) // unsorted and unfiltered contact data
+const ContactList = ({filter, filterSettings, data, getContactList, selectedContact, setSelectedContact}) => {
   const [filteredList, setFilteredList] = useState([]) // unsorted filtered data
   const [contactList, setContactList] = useState([]); // sorted and filtered contact list
-  const [selectedContact, setSelectedContact] = useState({});
+  
   // sort states
   const [sortField, setSortField] = useState('firstName'); // what field to sort by
   const [sortAscending, setSortAscending] = useState(true); // boolean state for sort direction
@@ -26,7 +24,6 @@ const ContactList = ({filter, filterSettings}) => {
   }, [])
 
   useEffect(() => {
-    if(data && data.length>0)
       filterContacts()
   }, [data, filter])
 
@@ -40,16 +37,6 @@ const ContactList = ({filter, filterSettings}) => {
       setSelectedContact(contactList[0]);
     cancelDelete()
   }, [contactList])
-
-  // Retrieves contacts from the DB
-  const getContactList = () => {
-    fetch(`https://front-end.oudemo.com/api/address/list?apikey=${API_KEY}`, {
-      method: 'GET',
-    })
-    .then(res => res.json())
-    .then(data => {setData(data.result);})
-    .catch(err => console.log(err))
-  }
 
   const cancelDelete = () => {
     setDeleting(false);
@@ -73,13 +60,13 @@ const ContactList = ({filter, filterSettings}) => {
       }
   }
 
+  // Filters contact data based on filterSettings
   const filterContacts = () => {
     let listCopy = data.slice();
     if(data && filter.length>1){
       let filterCopy = filter.slice().toUpperCase();
       listCopy = listCopy.filter((contact) => {
         return filterSettings.some((filter) => contact[filter]?.toUpperCase().includes(filterCopy))
-        // return ((filterSettings.filter((filter) => contact[filter]?.toUpperCase().includes(filterCopy))).length > 0)
       })
     }
     setFilteredList(listCopy)
@@ -99,7 +86,13 @@ const ContactList = ({filter, filterSettings}) => {
       <div className="list-options-container">
         <SortMenu sortField={sortField} setSortField={setSortField} sortAscending={sortAscending} setSortAscending={setSortAscending}/>
         <div style={{display:'flex'}}>
-          <DeleteButton setDeleting={setDeleting} deleting={deleting} deleteList={deleteList} setDeleteList={setDeleteList} getContactList={getContactList}/>
+          <DeleteButton 
+            setDeleting={setDeleting} 
+            deleting={deleting} 
+            deleteList={deleteList} 
+            setDeleteList={setDeleteList} 
+            getContactList={getContactList}
+          />
           <CreateContactDialogue getContactList={getContactList}/>
         </div>
       </div>
