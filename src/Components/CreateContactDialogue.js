@@ -91,7 +91,7 @@ const CreateContactDialogue = ({getContactList}) => {
           <Modal.Body>
           <Form id='requestForm'>
             {FIELDS.map((field, i)=>(
-              <Form.Group>
+              <Form.Group key={`${i}-${field}-form`}>
                 <Form.Control 
                   defaultValue={newContact[field]} 
                   className ='' 

@@ -6,13 +6,18 @@ import SearchBar from './SearchBar';
 
 // Contacts component for the left-hand side of the app
 const Contacts = () => {
-    const [filterQuery, setFilterQuery] = useState('')
-    const [filterSettings, setFilterSettings] = useState([])
+    const [filter, setFilter] = useState('')
+    const [filterSettings, setFilterSettings] = useState(['firstName', 'lastName', 'email'])
 
     return(
         <div className="contacts-container">
-            <SearchBar></SearchBar>
-            <ContactList/>
+            <SearchBar 
+                filter={filter} 
+                setFilter={setFilter} 
+                filterSettings={filterSettings} 
+                setFilterSettings={setFilterSettings}>
+            </SearchBar>
+            <ContactList filter={filter} filterSettings={filterSettings}/>
         </div>
     )
 }

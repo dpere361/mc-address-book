@@ -26,6 +26,15 @@
   background-color: #424242; 
 }
 
+.input-group-text{
+  padding: 0 !important; 
+  border: none !important;
+  background: none !important;
+  margin-right: 20px;
+}
+
+
+
 .entry-letter{
   color: #E2E2E2;
   font-size: 36px;

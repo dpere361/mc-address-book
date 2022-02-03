@@ -29,8 +29,21 @@
   height: 100%;
   padding: 0;
   font-size: 16px;
-  color: #A4A4A4;
+  color: black;
   border-style: none;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #A4A4A4;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #A4A4A4;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #A4A4A4;
 }
 
 .search-input:focus-visible{

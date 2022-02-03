@@ -1,0 +1,30 @@
+.cancel-button{
+  margin-right: 5px;
+  color: #B5B5B5;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cancel-button:hover{
+  color: #8a8a8a;
+}
+
+.delete-icon{
+  font-size: 14px;
+  color: #B5B5B5;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.delete-icon:hover{
+  color: #8a8a8a;
+}
+
+.deleting {
+  color: #bf021d;
+}
+
+.deleting:hover {
+  color: #990017;
+}
