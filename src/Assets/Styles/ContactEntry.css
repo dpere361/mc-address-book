@@ -18,16 +18,12 @@
   cursor: pointer;
 }
 
-/* .first-separator{
-  border-top: 1px solid #393939;
-} */
-
-.selected-contact{
+.entry-container:hover{
   background-color: #2D2D2D;
 }
 
-.entry-container:hover{
-  background-color: #2D2D2D;
+.selected-contact{
+  background-color: #424242; 
 }
 
 .entry-letter{
