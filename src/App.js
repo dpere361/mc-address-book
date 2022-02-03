@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import './assets/styles/App.css';
 import Contacts from './components/Contacts';
 import 'bootstrap/dist/css/bootstrap.min.css';

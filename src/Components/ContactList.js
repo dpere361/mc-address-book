@@ -72,12 +72,12 @@ const ContactList = ({filter, filterSettings, data, getContactList, selectedCont
     setFilteredList(listCopy)
   }
 
-  // Method to check if the first letter of a contact's info is the first occurance, make it State based
+  // Method to check if the first letter of a contact's info is the first occurance
   const isFirst = (contact, i) => {
       let firstOccurance=0;
     if(contactList.length > 0)
       firstOccurance = contactList.findIndex((element) => element[sortField]?.charAt(0) === contact[sortField]?.charAt(0));
-    
+      
       return (firstOccurance === i)
   }
 

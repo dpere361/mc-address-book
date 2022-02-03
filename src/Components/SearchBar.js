@@ -13,11 +13,11 @@ const SearchBar = ({filter, setFilter, filterSettings, setFilterSettings}) => {
     setFilter(e.target.value)
   }
 
+  // add/remove filters from the search settings
   const handleSearchSettings = (e) => {
     if(e.target.checked){
       setFilterSettings([...filterSettings, e.target.value])
     }
-      
     else{
       setFilterSettings(filterSettings.filter((element) => element !== e.target.value))
     }

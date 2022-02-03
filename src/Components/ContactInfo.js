@@ -1,22 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './../assets/styles/ContactInfo.css'
 import pfp from './../assets/generic-avatar-1.jpg';
 import EditMenu from './EditMenu'
-import { formatPhone } from '../utils/utility';
-import MD5 from "crypto-js/md5";
+import { formatPhone, hashString } from '../utils/utility';
 
 const ContactInfo = ({selectedContact, getContactList}) => {
-
-  useEffect(()=>{
-    console.log(MD5('email'.trim().toLowerCase()).toString())
-  }, [])
 
   return(
     <div className="info-container">
       {Object.keys(selectedContact).length !== 0
       ? <>
           <EditMenu selectedContact={selectedContact} getContactList={getContactList}/>
-          <img className='info-picture' src={selectedContact.email?`https://www.gravatar.com/avatar/${MD5(selectedContact.email.trim().toLowerCase()).toString()}?s=200&r=pg&d=robohash`: pfp} alt='profile'/>
+          <img className='info-picture' src={selectedContact.email?`https://www.gravatar.com/avatar/${hashString(selectedContact.email)}?s=200&r=pg&d=robohash`: pfp} alt='profile'/>
           <h1 className='info-name'>{selectedContact.firstName} {selectedContact.lastName}</h1>
           <div className='sub-info-container'>
             <div className='sub-info-row'>
@@ -58,7 +53,6 @@ const ContactInfo = ({selectedContact, getContactList}) => {
         </>
       : <p style={{fontSize:'20px'}}>No contact selected</p>
       }
-      
     </div>
   )
 } 
